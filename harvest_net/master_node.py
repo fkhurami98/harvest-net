@@ -1,6 +1,7 @@
 import socket
 import threading
 from queue import Queue
+from pprint import pprint
 
 # Constants
 HOST: str = '0.0.0.0'
@@ -77,4 +78,4 @@ try:
     while True:
         pass
 except KeyboardInterrupt: # Ctrl + C to see results.
-    print("\nResults collected:", results)
+    pprint("\nResults collected:", results)
