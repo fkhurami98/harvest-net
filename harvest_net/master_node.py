@@ -31,7 +31,7 @@ def task_distributor():
     distributor = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     distributor.bind((HOST, PORT))
     distributor.listen(5)
-    print("Master node started, waiting for worker connections...\n" + "-"*50)
+    print("\nMaster node started, waiting for worker connections...\n" + "-"*50)
 
     while True:
         worker, addr = distributor.accept()
