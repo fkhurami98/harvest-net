@@ -32,7 +32,7 @@ def worker_node():
         return
 
     # Fake task
-    print(f"\nReceived task: {task}\nProcessing...")
+    print(f"\nReceived task: \n{task}\nProcessing...")
     time.sleep(2) # Simulating proccessing/ actual web-scraping of the data goes here 
     scraped_data = f"Mock data from {task}"
 
@@ -45,7 +45,7 @@ def worker_node():
         print(f"Error: Could not send data to the master node. Check the master node is running and reachable. \n {e} ")
         return
     
-    print(f"\nSending mock data for {task} to master node...")
+    print(f"\nSending mock data to master node for:\n{task}")
     collector.send(scraped_data.encode())
     collector.close()
 

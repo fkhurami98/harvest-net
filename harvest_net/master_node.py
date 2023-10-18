@@ -40,10 +40,10 @@ def task_distributor():
 
     while True:
         worker, addr = distributor.accept()
-        print(f"\nConnected to worker @ {addr}")
+        print(f"\nConnected to worker @ {addr}" + "-"*50)
         if not task_queue.empty():
             task = task_queue.get()
-            print(f"\nSending task: {task} to worker @ {addr}")
+            print(f"\nSending task:\n {task}\n to worker @ {addr}")
             worker.send(task.encode())
         else:
             print("\nNo tasks available. Sending 'NO_TASK' message to worker.")
@@ -65,7 +65,7 @@ def result_collector():
         data = worker.recv(BUFFER_SIZE).decode()
         if data != "NO_TASK":
             results.append(data)
-            print(f"\nReceived data from worker @ {addr}: {data}")
+            print(f"\nReceived data from worker @ {addr}: {data}"+ "-"*50)
         worker.close()
 
 
@@ -78,4 +78,5 @@ try:
     while True:
         pass
 except KeyboardInterrupt: # Ctrl + C to see results.
-    pprint("\nResults collected:", results)
+    print("\nResults collected:")
+    pprint(results)
