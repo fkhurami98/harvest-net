@@ -43,7 +43,7 @@ def task_distributor():
         print(f"\nConnected to worker @ {addr}\n")
         if not task_queue.empty():
             task = task_queue.get()
-            print(f"\nSending task:\n {task}\n to worker @ {addr}")
+            print(f"Sending task:\n\n{task}\n\n to worker @ {addr}")
             worker.send(task.encode())
         else:
             print("\nNo tasks available. Sending 'NO_TASK' message to worker.")
