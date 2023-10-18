@@ -2,13 +2,13 @@ import socket
 import time
 
 # Constants
-HOST: str = '127.0.0.1'
+HOST: str = '192.168.1.121' # Change to IP of Masternode
 PORT: int = 12345
 BUFFER_SIZE: int = 1024
 
 def worker_node():
     """
-    This function defines the functionality of a worker node.
+    Defines the functionality of a worker node.
     It requests a task, which it then processeses, then sends the result back to the master node.
     """
     print("\n" + "-"*50)
