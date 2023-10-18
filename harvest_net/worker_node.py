@@ -15,7 +15,13 @@ def worker_node():
     
     # Requesting a task from the master node
     worker = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    worker.connect((HOST, PORT))
+
+    try:
+        worker.connect((HOST, PORT))
+    except ConnectionRefusedError as e:
+        print(f"Error: Could not connect to the master node. Check the master node is running and reachable. \n {e} ")
+        return
+
     print("\nConnected to master node for task...")
     task = worker.recv(BUFFER_SIZE).decode()
     worker.close()
@@ -26,13 +32,19 @@ def worker_node():
         return
 
     # Fake task
-    print(f"\nReceived task: {task}. Processing...")
-    time.sleep(2) # Simulating proccessing
+    print(f"\nReceived task: {task}\nProcessing...")
+    time.sleep(2) # Simulating proccessing/ actual web-scraping of the data goes here 
     scraped_data = f"Mock data from {task}"
 
     # Sending processed result back to the master node
     collector = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    collector.connect((HOST, PORT + 1))
+
+    try:
+        collector.connect((HOST, PORT + 1))
+    except ConnectionRefusedError as e:
+        print(f"Error: Could not send data to the master node. Check the master node is running and reachable. \n {e} ")
+        return
+    
     print(f"\nSending mock data for {task} to master node...")
     collector.send(scraped_data.encode())
     collector.close()
